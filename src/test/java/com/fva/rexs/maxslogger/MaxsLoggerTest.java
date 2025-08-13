@@ -1,4 +1,4 @@
-package com.rexs.maxslogger;
+package com.fva.rexs.maxslogger;
 
 
 import java.io.File;
@@ -30,8 +30,6 @@ class MaxsLoggerTest {
         MaxsLogger.setAppInformation(null, null);
     }
 
-
-
     @Test
     void test_notificationList(@TempDir final Path tempDir)
     {
@@ -41,9 +39,7 @@ class MaxsLoggerTest {
         final File actualMaxsFile = tempDir.resolve("actual.maxs").toFile();
 
         // When
-        // Activate file logging
         MaxsLogger.activateFileLogging(actualMaxsFile);
-        // Log notifications
         final MaterialComp part5 = MaterialComp.builder().rexsId(5).build();
         MaxsLogger.logMessage(Routine.TR06, part5, "TR06 plugin", MessageType.INFO);
         MaxsLogger.requireNonNull(Routine.TR06, part5, part5.getElasticModulus(), "elastic_modulus");

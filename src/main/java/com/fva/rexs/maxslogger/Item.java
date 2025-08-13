@@ -1,4 +1,4 @@
-package com.rexs.maxslogger;
+package com.fva.rexs.maxslogger;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
