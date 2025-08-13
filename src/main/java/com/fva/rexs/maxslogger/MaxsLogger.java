@@ -1,6 +1,6 @@
-package com.rexs.maxslogger;
+package com.fva.rexs.maxslogger;
 
-import com.rexs.maxslogger.utils.MathUtility;
+import com.fva.rexs.maxslogger.utils.MathUtility;
 import info.rexs.model.RexsComponent;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;

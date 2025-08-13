@@ -1,4 +1,4 @@
-package com.rexs.maxslogger.utils;
+package com.fva.rexs.maxslogger.utils;
 
 import java.util.Objects;
 import javax.measure.Quantity;

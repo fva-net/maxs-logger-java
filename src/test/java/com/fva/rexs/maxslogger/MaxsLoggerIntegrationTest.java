@@ -1,4 +1,4 @@
-package com.rexs.maxslogger;
+package com.fva.rexs.maxslogger;
 
 import info.rexs.model.RexsComponent;
 import info.rexs.model.RexsModelObjectFactory;
@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 
-import static com.rexs.maxslogger.utils.MathUtility.getQuantity;
+import static com.fva.rexs.maxslogger.utils.MathUtility.getQuantity;
 import static javax.measure.MetricPrefix.MILLI;
 import static org.junit.jupiter.api.Assertions.*;
 import static tech.units.indriya.unit.Units.METRE;
 
 
-class MaxsLogger_UnitTest {
+class MaxsLoggerIntegrationTest {
 
     public static final Unit<Length> MILLIMETER = MILLI(METRE);
 
