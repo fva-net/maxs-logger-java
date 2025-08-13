@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kernelNotifications>
+  <notification type="INFO" routine="tr06" compId="5">
+    <message>TR06 plugin</message>
+  </notification>
+  <notification compId="5" routine="tr06" type="DEBUG_ERROR">
+    <message>elastic_modulus is required to perform the calculation but is missing.</message>
+    <data>
+      <item attrId="elastic_modulus" compId="5" value="NaN" />
+    </data>
+  </notification>
+</kernelNotifications>
