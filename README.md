@@ -9,7 +9,6 @@ validation, and file output in XML format.
 - Validate required and non-zero attributes for components and parts
 - Output notifications to `.maxs` XML files
 - Integration with REXS model components
-- Utility methods for quantity and numeric operations
 
 ## Requirements
 
