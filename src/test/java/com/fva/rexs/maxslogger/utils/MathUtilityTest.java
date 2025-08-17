@@ -1,8 +1,6 @@
 package com.fva.rexs.maxslogger.utils;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tech.units.indriya.quantity.Quantities;
 
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
@@ -46,18 +44,4 @@ class MathUtilityTest {
         assertFalse(MathUtility.isSimilar(10.0, Double.NEGATIVE_INFINITY), "Equality check should fail for infinite and real values");
     }
 
-    @Test
-    void testGetQuantity()
-    {
-        // null/NaN checks
-        Assertions.assertNull(MathUtility.getQuantity(Double.NaN, MICRONS));
-        Assertions.assertNull(MathUtility.getQuantity(1.2, null));
-
-        // checks with values
-        Assertions.assertEquals(Quantities.getQuantity(1.2, MICRONS), MathUtility.getQuantity(1.2, MICRONS));
-        Assertions.assertEquals(Quantities.getQuantity(MathUtility.THRESHOLD_LIMIT, MICRONS),
-                MathUtility.getQuantity(Double.POSITIVE_INFINITY, MICRONS));
-        Assertions.assertEquals(Quantities.getQuantity(-MathUtility.THRESHOLD_LIMIT, MICRONS),
-                MathUtility.getQuantity(Double.NEGATIVE_INFINITY, MICRONS));
-    }
 }

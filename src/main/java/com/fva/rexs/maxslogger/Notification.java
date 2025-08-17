@@ -1,6 +1,8 @@
 package com.fva.rexs.maxslogger;
 
 import jakarta.xml.bind.annotation.*;
+import lombok.Getter;
+
 import java.util.List;
 
 /**
@@ -33,9 +35,13 @@ class Notification {
 
     /**
      * The routine associated with the notification.
+     * -- GETTER --
+     *  Gets the routine as a string.
+
      */
+    @Getter
     @XmlAttribute
-    private Routine routine;
+    private String routine;
 
     /**
      * The type of the notification.
@@ -55,4 +61,12 @@ class Notification {
         }
         return data;
     }
+
+    /**
+     * Sets the routine from a Routine object.
+     */
+    public void setRoutine(Routine routine) {
+        this.routine = (routine != null) ? routine.getId() : null;
+    }
+
 }
