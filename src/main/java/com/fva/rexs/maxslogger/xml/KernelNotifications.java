@@ -1,4 +1,4 @@
-package com.fva.rexs.maxslogger;
+package com.fva.rexs.maxslogger.xml;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "kernelNotifications")
-class KernelNotifications {
+public class KernelNotifications {
 
     /**
      * The list of notifications.

@@ -1,5 +1,7 @@
-package com.fva.rexs.maxslogger;
+package com.fva.rexs.maxslogger.xml;
 
+import com.fva.rexs.maxslogger.MessageType;
+import com.fva.rexs.maxslogger.Routine;
 import jakarta.xml.bind.annotation.*;
 import lombok.Getter;
 
@@ -12,7 +14,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "message", "data" })
 @XmlRootElement(name = "notification")
-class Notification {
+public class Notification {
 
     /**
      * The component ID of the notification.
