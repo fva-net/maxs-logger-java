@@ -1,16 +1,18 @@
 package com.fva.rexs.maxslogger;
 
-import com.fva.rexs.maxslogger.utils.MathUtility;
+
 import info.rexs.model.RexsComponent;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-import java.io.File;
-import javax.measure.Quantity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.math3.util.Precision;
 import tech.units.indriya.quantity.NumberQuantity;
+
+import javax.measure.Quantity;
+import java.io.File;
 
 /**
  * MaxsLogger is a utility class for the generation of MAXS log files.
@@ -289,7 +291,7 @@ public final class MaxsLogger {
      */
     public static void requireNonZero(final Routine routine, final Part part, final double value, final String attribute)
     {
-        if (Double.isNaN(value) || MathUtility.isSimilar(value, 0)) {
+        if (Double.isNaN(value) || Precision.equalsWithRelativeTolerance(value, 0, 1e-7)) {
             logMissingAttribute(routine, part, value, attribute);
         }
     }
@@ -314,7 +316,7 @@ public final class MaxsLogger {
             logMissingAttribute(routine, part, null, attribute);
             return;
         }
-        if (MathUtility.isSimilar(quantity.getValue().doubleValue(), 0)) {
+        if (Precision.equalsWithRelativeTolerance(quantity.getValue().doubleValue(), 0, 1e-7)) {
             logMissingAttribute(routine, part, quantity, attribute);
         }
     }
