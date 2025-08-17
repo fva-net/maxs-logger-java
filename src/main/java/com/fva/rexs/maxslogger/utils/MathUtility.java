@@ -1,13 +1,10 @@
 package com.fva.rexs.maxslogger.utils;
 
-import java.util.Objects;
-import javax.measure.Quantity;
-import javax.measure.Unit;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.math3.util.Precision;
-import tech.units.indriya.quantity.NumberQuantity;
-import tech.units.indriya.quantity.Quantities;
+
+import javax.measure.Quantity;
 
 /**
  * Utility class for {@link Quantity}
@@ -15,10 +12,6 @@ import tech.units.indriya.quantity.Quantities;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MathUtility {
 
-    /**
-     * Threshold limit for positive and negative infinity
-     */
-    public static final double THRESHOLD_LIMIT = 1.3407807929942596E154;
 
     /**
      * Relative precision used for comparing values.
@@ -42,32 +35,6 @@ public final class MathUtility {
             return true;
         }
         return Precision.equalsWithRelativeTolerance(d1, d2, RELATIVE_PRECISION);
-    }
-
-    /**
-     * @param value
-     *         the value of quantity
-     * @param unit
-     *         the unit of measure
-     * @param <Q>
-     *         the type of quantity
-     *
-     * @return the quantity
-     */
-    public static <Q extends Quantity<Q>> NumberQuantity<Q> getQuantity(final double value, final Unit<Q> unit)
-    {
-        if (Objects.isNull(unit) || Double.isNaN(value)) {
-            return null;
-        }
-        else if (Double.isInfinite(value) && value > 0) {
-            return (NumberQuantity<Q>) Quantities.getQuantity(THRESHOLD_LIMIT, unit);
-        }
-        else if (Double.isInfinite(value) && value < 0) {
-            return (NumberQuantity<Q>) Quantities.getQuantity(-THRESHOLD_LIMIT, unit);
-        }
-        else {
-            return (NumberQuantity<Q>) Quantities.getQuantity(value, unit);
-        }
     }
 }
 

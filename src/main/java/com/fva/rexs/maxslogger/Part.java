@@ -1,8 +1,7 @@
 package com.fva.rexs.maxslogger;
 
 /**
- * <b>Part</b><br/>
- * Bauteil
+ * Represents a part with a REXS ID.
  */
 public interface Part {
 

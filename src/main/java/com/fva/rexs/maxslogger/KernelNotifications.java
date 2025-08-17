@@ -1,10 +1,11 @@
 package com.fva.rexs.maxslogger;
 
 import jakarta.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the kernel notifications of a notification logger.
