@@ -1,6 +1,9 @@
 package com.fva.rexs.maxslogger;
 
 
+import com.fva.rexs.maxslogger.xml.Item;
+import com.fva.rexs.maxslogger.xml.KernelNotifications;
+import com.fva.rexs.maxslogger.xml.Notification;
 import info.rexs.model.RexsComponent;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;

@@ -1,4 +1,4 @@
-package com.fva.rexs.maxslogger;
+package com.fva.rexs.maxslogger.xml;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Data;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "compId", "attrId", "value" })
 @XmlRootElement(name = "item")
-class Item {
+public class Item {
 
     /**
      * The attribute ID of the item.

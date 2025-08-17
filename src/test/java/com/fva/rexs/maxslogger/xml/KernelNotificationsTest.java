@@ -1,4 +1,4 @@
-package com.fva.rexs.maxslogger;
+package com.fva.rexs.maxslogger.xml;
 
 import org.junit.jupiter.api.Test;
 
