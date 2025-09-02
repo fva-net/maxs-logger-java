@@ -1,7 +1,7 @@
-package com.fva.rexs.maxslogger.xml;
+package io.github.fvanet.maxsloggerjava.xml;
 
-import com.fva.rexs.maxslogger.MessageType;
-import com.fva.rexs.maxslogger.Routine;
+import io.github.fvanet.maxsloggerjava.MessageType;
+import io.github.fvanet.maxsloggerjava.Routine;
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
 

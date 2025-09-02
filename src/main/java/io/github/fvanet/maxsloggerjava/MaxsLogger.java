@@ -1,10 +1,10 @@
-package com.fva.rexs.maxslogger;
+package io.github.fvanet.maxsloggerjava;
 
 
-import com.fva.rexs.maxslogger.xml.Item;
-import com.fva.rexs.maxslogger.xml.KernelNotifications;
-import com.fva.rexs.maxslogger.xml.Notification;
 import info.rexs.model.RexsComponent;
+import io.github.fvanet.maxsloggerjava.xml.Item;
+import io.github.fvanet.maxsloggerjava.xml.KernelNotifications;
+import io.github.fvanet.maxsloggerjava.xml.Notification;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
