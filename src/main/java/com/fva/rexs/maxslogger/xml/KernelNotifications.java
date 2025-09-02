@@ -11,6 +11,7 @@ import java.util.List;
  * Represents the kernel notifications of a notification logger.
  */
 
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "kernelNotifications")
 public class KernelNotifications {
@@ -23,14 +24,12 @@ public class KernelNotifications {
     /**
      * The application ID.
      */
-    @Getter
     @Setter
     @XmlAttribute
     private String appId;
     /**
      * The application version.
      */
-    @Getter
     @Setter
     @XmlAttribute
     private String appVersion;
