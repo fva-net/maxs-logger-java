@@ -1,6 +1,6 @@
-package com.fva.rexs.maxslogger.xml;
+package io.github.fvanet.maxsloggerjava.xml;
 
-import com.fva.rexs.maxslogger.IsoRoutine;
+import io.github.fvanet.maxsloggerjava.IsoRoutine;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

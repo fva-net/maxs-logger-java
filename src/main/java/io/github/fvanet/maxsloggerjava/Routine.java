@@ -1,4 +1,4 @@
-package com.fva.rexs.maxslogger;
+package io.github.fvanet.maxsloggerjava;
 
 /**
  * Represents a routine with an ID.
