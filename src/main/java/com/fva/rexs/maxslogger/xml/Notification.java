@@ -3,14 +3,14 @@ package com.fva.rexs.maxslogger.xml;
 import com.fva.rexs.maxslogger.MessageType;
 import com.fva.rexs.maxslogger.Routine;
 import jakarta.xml.bind.annotation.*;
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.List;
 
 /**
  * Represents a notification.
  */
-@lombok.Data
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "message", "data" })
 @XmlRootElement(name = "notification")
@@ -41,7 +41,6 @@ public class Notification {
      *  Gets the routine as a string.
 
      */
-    @Getter
     @XmlAttribute
     private String routine;
 

@@ -2,15 +2,11 @@ package com.fva.rexs.maxslogger;
 
 import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlEnumValue;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Enumeration representing message types.
  */
 @XmlEnum
-@Getter
-@AllArgsConstructor
 public enum MessageType {
     /**
      * Represents an error message type.
