@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Represents the kernel notifications of a notification logger.
  */
-
 @Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "kernelNotifications")
