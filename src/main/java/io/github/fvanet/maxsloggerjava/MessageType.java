@@ -1,46 +1,36 @@
 package io.github.fvanet.maxsloggerjava;
 
-import jakarta.xml.bind.annotation.XmlEnum;
-import jakarta.xml.bind.annotation.XmlEnumValue;
-
 /**
  * Enumeration representing message types.
  */
-@XmlEnum
 public enum MessageType {
     /**
      * Represents an error message type.
      */
-    @XmlEnumValue("ERROR")
     ERROR,
 
     /**
      * Represents a warning message type.
      */
-    @XmlEnumValue("WARNING")
     WARNING,
 
     /**
      * Represents an info message type.
      */
-    @XmlEnumValue("INFO")
     INFO,
 
     /**
      * Represents a debug error message type.
      */
-    @XmlEnumValue("DEBUG_ERROR")
     DEBUG_ERROR,
 
     /**
      * Represents a debug warning message type.
      */
-    @XmlEnumValue("DEBUG_WARNING")
     DEBUG_WARNING,
 
     /**
      * Represents a debug info message type.
      */
-    @XmlEnumValue("DEBUG_INFO")
     DEBUG_INFO
 }
