@@ -99,7 +99,7 @@ public final class MaxsLogger {
      * @param messageType
      *         severity of the message
      */
-    public static void logMessage(final Routine routineType, final RexsComponent rexsComponent, final String message, final MessageType messageType)
+	public static void logMessage(final StandardRoutine routineType, final RexsComponent rexsComponent, final String message, final MessageType messageType)
     {
         // Create the log message
         final Notification notification = new Notification();
@@ -125,7 +125,7 @@ public final class MaxsLogger {
      * @param messageType
      *         severity of the message
      */
-	public static void logMessage(final Routine routineType, final RexsPart part, final String message, final MessageType messageType)
+	public static void logMessage(final StandardRoutine routineType, final RexsPart part, final String message, final MessageType messageType)
     {
         // Create the log message
         final Notification notification = new Notification();
@@ -149,7 +149,7 @@ public final class MaxsLogger {
      * @param messageType
      *         severity of the message
      */
-    public static void logMessage(final Routine routineType, final String message, final MessageType messageType)
+	public static void logMessage(final StandardRoutine routineType, final String message, final MessageType messageType)
     {
         // Create the log message
         final Notification notification = new Notification();
@@ -174,7 +174,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the attribute name
      */
-	private static void logMissingAttribute(final Routine routine, final RexsPart part, final Object value, final String attribute)
+	private static void logMissingAttribute(final StandardRoutine routine, final RexsPart part, final Object value, final String attribute)
     {
         final Notification notification = new Notification();
         final Item item = new Item();
@@ -226,7 +226,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the name of the attribute
      */
-	public static void requireNonNull(final Routine routine, final RexsPart part, final double value, final String attribute)
+	public static void requireNonNull(final StandardRoutine routine, final RexsPart part, final double value, final String attribute)
     {
         if (Double.isNaN(value)) {
             logMissingAttribute(routine, part, value, attribute);
@@ -247,7 +247,7 @@ public final class MaxsLogger {
      * @param <Q>
      *         the quantity of type Q
      */
-	public static <Q extends Quantity<Q>> void requireNonNull(final Routine routine, final RexsPart part, final Quantity<Q> quantity, final String attribute)
+	public static <Q extends Quantity<Q>> void requireNonNull(final StandardRoutine routine, final RexsPart part, final Quantity<Q> quantity, final String attribute)
     {
         if (quantity == null) {
             logMissingAttribute(routine, part, null, attribute);
@@ -268,7 +268,7 @@ public final class MaxsLogger {
      * @param <E>
      *         the type of the enum
      */
-	public static <E extends Enum<E>> void requireNonNull(final Routine routine, final RexsPart part, final E enumValue, final String attribute)
+	public static <E extends Enum<E>> void requireNonNull(final StandardRoutine routine, final RexsPart part, final E enumValue, final String attribute)
     {
 
         if (enumValue == null) {
@@ -292,7 +292,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the name of the attribute
      */
-	public static void requireNonZero(final Routine routine, final RexsPart part, final double value, final String attribute)
+	public static void requireNonZero(final StandardRoutine routine, final RexsPart part, final double value, final String attribute)
     {
         if (Double.isNaN(value) || Precision.equalsWithRelativeTolerance(value, 0, 1e-7)) {
             logMissingAttribute(routine, part, value, attribute);
@@ -313,7 +313,7 @@ public final class MaxsLogger {
      * @param <Q>
      *         the type of the quantity
      */
-	public static <Q extends Quantity<Q>> void requireNonZero(final Routine routine, final RexsPart part, final Quantity<Q> quantity, final String attribute)
+	public static <Q extends Quantity<Q>> void requireNonZero(final StandardRoutine routine, final RexsPart part, final Quantity<Q> quantity, final String attribute)
     {
         if (quantity == null) {
             logMissingAttribute(routine, part, null, attribute);
@@ -336,7 +336,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the name of the attribute
      */
-	public static void requireNonZero(final Routine routine, final RexsPart part, final int value, final String attribute)
+	public static void requireNonZero(final StandardRoutine routine, final RexsPart part, final int value, final String attribute)
     {
         if (value == 0) {
             logMissingAttribute(routine, part, value, attribute);
