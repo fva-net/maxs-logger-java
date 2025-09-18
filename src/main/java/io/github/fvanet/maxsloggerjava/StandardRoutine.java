@@ -1,7 +1,7 @@
 package io.github.fvanet.maxsloggerjava;
 
 /**
- * Represents a routine with an ID.
+ * Interface representing a calculation standard routine.
  */
 public interface StandardRoutine {
     String getId();
