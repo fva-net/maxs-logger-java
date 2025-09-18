@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.xmlunit.assertj3.XmlAssert;
 import tech.units.indriya.quantity.NumberQuantity;
+import tech.units.indriya.quantity.Quantities;
 
 import javax.measure.quantity.Pressure;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tech.units.indriya.unit.Units.PASCAL;
 
 class MaxsLoggerTest {
 
@@ -58,4 +60,30 @@ class MaxsLoggerTest {
         MaxsLogger.reset();
         assertEquals(0, MaxsLogger.kernelNotifications.size());
     }
+
+	@Test
+	void test_requireNonZero_quantity_null_logsMissingAttribute() {
+		MaterialComp materialComp = MaterialComp.builder().rexsId(1).build();
+		int initialSize = MaxsLogger.kernelNotifications.size();
+		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, materialComp, (NumberQuantity<Pressure>) null, "elastic_modulus");
+		assertEquals(initialSize + 1, MaxsLogger.kernelNotifications.size());
+	}
+
+	@Test
+	void test_requireNonZero_quantity_zero_logsMissingAttribute() {
+		MaterialComp materialComp = MaterialComp.builder().rexsId(2).build();
+		NumberQuantity<Pressure> zeroQuantity = (NumberQuantity<Pressure>) Quantities.getQuantity(0.0, PASCAL);
+		int initialSize = MaxsLogger.kernelNotifications.size();
+		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, materialComp, zeroQuantity, "elastic_modulus");
+		assertEquals(initialSize + 1, MaxsLogger.kernelNotifications.size());
+	}
+
+	@Test
+	void test_requireNonZero_quantity_nonZero_doesNotLogMissingAttribute() {
+		MaterialComp materialComp = MaterialComp.builder().rexsId(3).build();
+		NumberQuantity<Pressure> nonZeroQuantity = (NumberQuantity<Pressure>) Quantities.getQuantity(100.0, PASCAL);
+		int initialSize = MaxsLogger.kernelNotifications.size();
+		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, materialComp, nonZeroQuantity, "elastic_modulus");
+		assertEquals(initialSize, MaxsLogger.kernelNotifications.size());
+	}
 }
