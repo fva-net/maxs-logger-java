@@ -20,7 +20,7 @@ class MaxsLoggerTest {
 
     @Data
     @Builder
-    static class MaterialComp implements Part {
+	static class MaterialComp implements RexsPart {
         private int rexsId;
         private NumberQuantity<Pressure> elasticModulus;
     }
