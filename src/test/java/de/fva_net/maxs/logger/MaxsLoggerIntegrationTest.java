@@ -1,4 +1,4 @@
-package io.github.fvanet.maxsloggerjava;
+package de.fva_net.maxs.logger;
 
 import info.rexs.model.RexsComponent;
 import info.rexs.model.RexsModelObjectFactory;

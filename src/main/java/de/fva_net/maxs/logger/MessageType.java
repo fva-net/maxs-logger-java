@@ -1,4 +1,4 @@
-package io.github.fvanet.maxsloggerjava;
+package de.fva_net.maxs.logger;
 
 /**
  * Enumeration representing message types.

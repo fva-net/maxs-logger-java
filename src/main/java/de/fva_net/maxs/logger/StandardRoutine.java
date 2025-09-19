@@ -1,4 +1,4 @@
-package io.github.fvanet.maxsloggerjava;
+package de.fva_net.maxs.logger;
 
 /**
  * Interface representing a calculation standard routine.

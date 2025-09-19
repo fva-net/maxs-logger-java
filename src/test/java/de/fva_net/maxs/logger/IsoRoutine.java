@@ -1,4 +1,4 @@
-package io.github.fvanet.maxsloggerjava;
+package de.fva_net.maxs.logger;
 
 /**
  * Enum for ISO routines.
