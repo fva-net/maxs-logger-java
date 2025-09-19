@@ -1,4 +1,4 @@
-package io.github.fvanet.maxsloggerjava.xml;
+package de.fva_net.maxs.logger.xml;
 
 import jakarta.xml.bind.annotation.*;
 import lombok.Getter;
@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Represents the kernel notifications of a notification logger.
  */
-
 @Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "kernelNotifications")

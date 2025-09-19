@@ -1,0 +1,16 @@
+package de.fva_net.maxs.logger;
+
+/**
+ * Represents a part with a REXS ID.
+ */
+public interface RexsPart {
+
+    /**
+     * <b>REXS ID</b><br/>
+     * REXS ID<br/>
+     * <i>No Symbol</i> [-]
+     *
+     * @return The stored value
+     */
+    int getRexsId();
+}
