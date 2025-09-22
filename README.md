@@ -3,6 +3,7 @@
 `maxs-logger-java` is a Java utility for generating MAXS log files, supporting notification logging, attribute
 validation, and file output in XML format.
 
+
 ## Features
 
 - Log messages with different severity levels (`INFO`, `WARNING`, `ERROR`, etc.)
@@ -10,12 +11,35 @@ validation, and file output in XML format.
 - Output notifications to `.maxs` XML files
 - Integration with REXS model components
 
+
 ## Requirements
+
+* Java 17
+
+
+## Installation
+
+Add the dependency to your project:
+
+### Using Maven
+
+```xml
+<dependency>
+    <groupId>io.github.fva-net</groupId>
+    <artifactId>maxs-logger-java</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+
+## Development
+
+### Requirements
 
 - Java 17+
 - Maven
 
-## Setup
+### Setup
 
 1. Clone the repository.
 2. Build with Maven:
@@ -23,11 +47,11 @@ validation, and file output in XML format.
    mvn clean install
    ```
 
-## Usage
+### Usage
 
 Import and use the `MaxsLogger` class to log messages
 
-## Testing
+### Testing
 
 Run unit and integration tests with:
 
