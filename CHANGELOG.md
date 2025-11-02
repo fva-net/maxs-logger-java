@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Renamed StandardRoutine for MaxsLoggableRoutine to better reflect its purpose
+- Renamed MessageType to MaxMessageType for clarity
 
 ### Removed
 

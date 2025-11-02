@@ -57,20 +57,20 @@ class MaxsLoggerIntegrationTest {
 
     @Test
     void logMessage_withPart_logsMessage() {
-		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 42, "Test message", MessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 42, "Test message", MaxsMessageType.INFO);
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(42, MaxsLogger.kernelNotifications.get(0).getCompId());
         assertEquals("Test message", MaxsLogger.kernelNotifications.get(0).getMessage());
-        assertEquals(MessageType.INFO, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.INFO, MaxsLogger.kernelNotifications.get(0).getType());
         assertEquals("iso21771_2007", MaxsLogger.kernelNotifications.get(0).getRoutine());
     }
 
     @Test
     void logMessage_withString_logsMessage() {
-        MaxsLogger.logMessage(IsoRoutine.ISO6336_2019, "String message", MessageType.ERROR);
+		MaxsLogger.logMessage(IsoRoutine.ISO6336_2019, "String message", MaxsMessageType.ERROR);
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals("String message", MaxsLogger.kernelNotifications.get(0).getMessage());
-        assertEquals(MessageType.ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.ERROR, MaxsLogger.kernelNotifications.get(0).getType());
         assertEquals("iso6336_2019", MaxsLogger.kernelNotifications.get(0).getRoutine());
     }
 
@@ -78,7 +78,7 @@ class MaxsLoggerIntegrationTest {
     void requireNonNull_doubleValueIsNaN_logsMissingAttribute() {
 		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Double.NaN, "attr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
-        assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
@@ -91,14 +91,14 @@ class MaxsLoggerIntegrationTest {
     void requireNonNull_enumValueIsNull_logsMissingAttribute() {
 		MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, 2, (TestEnum) null, "enumAttr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
-        assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonNull_enumValueIsUnknown_logsMissingAttribute() {
 		MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, 2, TestEnum.UNKNOWN, "enumAttr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
-        assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
@@ -111,14 +111,14 @@ class MaxsLoggerIntegrationTest {
     void requireNonZero_doubleValueIsNaN_logsMissingAttribute() {
 		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, Double.NaN, "attr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
-        assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonZero_doubleValueIsZero_logsMissingAttribute() {
 		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, 0.0, "attr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
-        assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
@@ -131,7 +131,7 @@ class MaxsLoggerIntegrationTest {
     void requireNonZero_intValueIsZero_logsMissingAttribute() {
 		MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, 4, 0, "intAttr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
-        assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
@@ -144,7 +144,7 @@ class MaxsLoggerIntegrationTest {
     void reset_clearsNotificationsAndDeactivatesLogging(@TempDir Path tempDir) {
         File validFile = new File(tempDir.toFile(), "logfile.maxs");
         MaxsLogger.activateFileLogging(validFile);
-		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 5, "msg", MessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 5, "msg", MaxsMessageType.INFO);
         assertTrue(MaxsLogger.isLoggingToFileActivated());
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         MaxsLogger.reset();
@@ -164,11 +164,11 @@ class MaxsLoggerIntegrationTest {
 
 	@Test
     void logMessage_withRexsComponent() {
-        MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, rexsGear, "Info message", MessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, rexsGear, "Info message", MaxsMessageType.INFO);
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(12, MaxsLogger.kernelNotifications.get(0).getCompId());
         assertEquals("Info message", MaxsLogger.kernelNotifications.get(0).getMessage());
-        assertEquals(MessageType.INFO, MaxsLogger.kernelNotifications.get(0).getType());
+		assertEquals(MaxsMessageType.INFO, MaxsLogger.kernelNotifications.get(0).getType());
         assertEquals("iso21771_2007", MaxsLogger.kernelNotifications.get(0).getRoutine());
         assertTrue(MaxsLogger.kernelNotifications.get(0).getMessage().contains("Info"));
     }

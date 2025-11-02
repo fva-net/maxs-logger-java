@@ -1,7 +1,7 @@
 package de.fva_net.maxs.logger.xml;
 
 import de.fva_net.maxs.logger.MaxsLoggableRoutine;
-import de.fva_net.maxs.logger.MessageType;
+import de.fva_net.maxs.logger.MaxsMessageType;
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
 
@@ -48,7 +48,7 @@ public class Notification {
      * The type of the notification.
      */
     @XmlAttribute(required = true)
-    private MessageType type;
+	private MaxsMessageType type;
 
     /**
      * Retrieves the list of items associated with the notification. If the list is null, it initializes it to an empty list.

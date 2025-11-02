@@ -36,7 +36,7 @@ class MaxsLoggerTest {
 
         MaxsLogger.activateFileLogging(actualMaxsFile);
         final MaterialComp materialComp = MaterialComp.builder().rexsId(5).build();
-		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, materialComp.rexsId, "ISO21771 plugin", MessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, materialComp.rexsId, "ISO21771 plugin", MaxsMessageType.INFO);
 		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, materialComp.rexsId, materialComp.elasticModulus(), "elastic_modulus");
 
         XmlAssert.assertThat(actualMaxsFile).and(expectedMaxFile).ignoreWhitespace().areIdentical();
@@ -51,7 +51,7 @@ class MaxsLoggerTest {
 
     @Test
     void test_reset() {
-        MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, "msg", MessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, "msg", MaxsMessageType.INFO);
         assertTrue(MaxsLogger.kernelNotifications.size() > 0);
         MaxsLogger.reset();
         assertEquals(0, MaxsLogger.kernelNotifications.size());
