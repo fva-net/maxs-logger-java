@@ -4,50 +4,52 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Enumeration representing message types.
+ * Represents the type of message in the MAXS logging system.
+ * <p>
+ * Message types indicate the severity and purpose of a log entry. Debug types are intended for development and troubleshooting.
  */
 @Getter
 @AllArgsConstructor
 public enum MaxsMessageType {
 	/**
-     * Represents an error message type.
+	 * Error message type.
 	 * <p>
-	 * Severity: High. Indicates a failure or critical issue.
+	 * Indicates a failure or critical issue that requires immediate attention.
      */
 	ERROR(false),
 
     /**
-     * Represents a warning message type.
+	 * Warning message type.
 	 * <p>
-	 * Severity: Medium. Indicates a potential problem or non-critical issue.
+	 * Indicates a potential problem or non-critical issue that should be reviewed.
      */
 	WARNING(false),
 
     /**
-     * Represents an info message type.
+	 * Info message type.
 	 * <p>
-	 * Severity: Low. Provides informational messages about normal operations.
+	 * Provides informational messages about normal operations.
      */
 	INFO(false),
 
 	/**
-	 * Represents a debug error message type.
+	 * Debug error message type.
 	 * <p>
-	 * Severity: High (Debug). Used for debugging critical errors.
+	 * Used for debugging critical errors during development.
      */
 	DEBUG_ERROR(true),
 
     /**
-     * Represents a debug warning message type.
+	 * Debug warning message type.
 	 * <p>
-	 * Severity: Medium (Debug). Used for debugging potential issues.
+	 * Used for debugging potential issues during development.
      */
 	DEBUG_WARNING(true),
 
     /**
-     * Represents a debug info message type.
+	 * Debug info message type.
 	 * <p>
-	 * Severity: Low (Debug). Used for debugging informational messages.
+	 * Used for debugging informational messages during development.
      */
 	DEBUG_INFO(true);
 
@@ -55,4 +57,5 @@ public enum MaxsMessageType {
 	 * Indicates whether this message type is for debugging purposes.
 	 */
 	private final boolean debug;
+
 }
