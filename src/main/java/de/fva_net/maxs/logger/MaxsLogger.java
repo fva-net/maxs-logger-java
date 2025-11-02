@@ -90,41 +90,41 @@ public final class MaxsLogger {
     /**
      * Logs a new message.
      *
-     * @param routineType
-     *         the standard
+	 * @param routine
+	 *         the routine for which the messasge shall be logged
      * @param rexsComponent
      *         the rexs component
      * @param message
-     *         a message string which shall be logged
+	 *         the log message
      * @param messageType
-     *         severity of the message
+	 *         the severity of the message
      */
-	public static void logMessage(final StandardRoutine routineType, final RexsComponent rexsComponent, final String message, final MessageType messageType)
+	public static void logMessage(final MaxsLoggableRoutine routine, final RexsComponent rexsComponent, final String message, final MessageType messageType)
     {
 		if (rexsComponent == null) {
-			logMessage(routineType, message, messageType);
+			logMessage(routine, message, messageType);
 		} else {
-			logMessage(routineType, rexsComponent.getId(), message, messageType);
+			logMessage(routine, rexsComponent.getId(), message, messageType);
 		}
     }
 
     /**
      * Logs a new message.
      *
-     * @param routineType
-     *         the standard
+	 * @param routine
+	 *         the routine for which the messasge shall be logged
 	 * @param componentId
 	 *         the numeric ID of the component
      * @param message
-     *         a message string which shall be logged
+	 *         the log message
      * @param messageType
-     *         severity of the message
+	 *         the severity of the message
      */
-	public static void logMessage(final StandardRoutine routineType, final int componentId, final String message, final MessageType messageType)
+	public static void logMessage(final MaxsLoggableRoutine routine, final int componentId, final String message, final MessageType messageType)
     {
         // Create the log message
         final Notification notification = new Notification();
-        notification.setRoutine(routineType);
+		notification.setRoutine(routine);
         notification.setMessage(message);
         notification.setType(messageType);
 		if (componentId > 0) {
@@ -139,18 +139,18 @@ public final class MaxsLogger {
     /**
      * Logs a new message.
      *
-     * @param routineType
-     *         the standard
+	 * @param routine
+	 *         the routine for which the messasge shall be logged
      * @param message
-     *         a message string which shall be logged
+	 *         the log message
      * @param messageType
-     *         severity of the message
+	 *         the severity of the message
      */
-	public static void logMessage(final StandardRoutine routineType, final String message, final MessageType messageType)
+	public static void logMessage(final MaxsLoggableRoutine routine, final String message, final MessageType messageType)
     {
         // Create the log message
         final Notification notification = new Notification();
-        notification.setRoutine(routineType);
+		notification.setRoutine(routine);
         notification.setMessage(message);
         notification.setType(messageType);
 
@@ -171,7 +171,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the attribute name
      */
-	private static void logMissingAttribute(final StandardRoutine routine, final int componentId, final Object value, final String attribute)
+	private static void logMissingAttribute(final MaxsLoggableRoutine routine, final int componentId, final Object value, final String attribute)
     {
         final Notification notification = new Notification();
         final Item item = new Item();
@@ -223,7 +223,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the name of the attribute
      */
-	public static void requireNonNull(final StandardRoutine routine, final int componentId, final double value, final String attribute)
+	public static void requireNonNull(final MaxsLoggableRoutine routine, final int componentId, final double value, final String attribute)
     {
         if (Double.isNaN(value)) {
 			logMissingAttribute(routine, componentId, value, attribute);
@@ -244,7 +244,7 @@ public final class MaxsLogger {
      * @param <Q>
      *         the quantity of type Q
      */
-	public static <Q extends Quantity<Q>> void requireNonNull(final StandardRoutine routine, final int componentId, final Quantity<Q> quantity, final String attribute)
+	public static <Q extends Quantity<Q>> void requireNonNull(final MaxsLoggableRoutine routine, final int componentId, final Quantity<Q> quantity, final String attribute)
     {
         if (quantity == null) {
 			logMissingAttribute(routine, componentId, null, attribute);
@@ -265,7 +265,7 @@ public final class MaxsLogger {
      * @param <E>
      *         the type of the enum
      */
-	public static <E extends Enum<E>> void requireNonNull(final StandardRoutine routine, final int componentId, final E enumValue, final String attribute)
+	public static <E extends Enum<E>> void requireNonNull(final MaxsLoggableRoutine routine, final int componentId, final E enumValue, final String attribute)
     {
 
         if (enumValue == null) {
@@ -289,7 +289,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the name of the attribute
      */
-	public static void requireNonZero(final StandardRoutine routine, final int componentId, final double value, final String attribute)
+	public static void requireNonZero(final MaxsLoggableRoutine routine, final int componentId, final double value, final String attribute)
     {
         if (Double.isNaN(value) || Precision.equalsWithRelativeTolerance(value, 0, 1e-7)) {
 			logMissingAttribute(routine, componentId, value, attribute);
@@ -310,7 +310,7 @@ public final class MaxsLogger {
      * @param <Q>
      *         the type of the quantity
      */
-	public static <Q extends Quantity<Q>> void requireNonZero(final StandardRoutine routine, final int componentId, final Quantity<Q> quantity, final String attribute)
+	public static <Q extends Quantity<Q>> void requireNonZero(final MaxsLoggableRoutine routine, final int componentId, final Quantity<Q> quantity, final String attribute)
     {
         if (quantity == null) {
 			logMissingAttribute(routine, componentId, null, attribute);
@@ -333,7 +333,7 @@ public final class MaxsLogger {
      * @param attribute
      *         the name of the attribute
      */
-	public static void requireNonZero(final StandardRoutine routine, final int componentId, final int value, final String attribute)
+	public static void requireNonZero(final MaxsLoggableRoutine routine, final int componentId, final int value, final String attribute)
     {
         if (value == 0) {
 			logMissingAttribute(routine, componentId, value, attribute);

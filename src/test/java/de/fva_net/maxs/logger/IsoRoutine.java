@@ -3,7 +3,7 @@ package de.fva_net.maxs.logger;
 /**
  * Enum for ISO routines.
  */
-public enum IsoRoutine implements StandardRoutine {
+public enum IsoRoutine implements MaxsLoggableRoutine {
     ISO21771_2007("iso21771_2007"),
     ISO6336_2019("iso6336_2019");
 
@@ -14,7 +14,7 @@ public enum IsoRoutine implements StandardRoutine {
     }
 
     @Override
-    public String getId() {
+	public String getMaxsId() {
         return id;
     }
 }
