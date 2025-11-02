@@ -111,7 +111,7 @@ public final class MaxsLogger {
 	public static void logMessage(final MaxsLoggableRoutine routine, final int componentId, final String message, final MaxsMessageType messageType) {
 		// Create the log message
 		final Notification notification = new Notification();
-		notification.setRoutine(routine);
+		notification.setRoutine(routine != null ? routine.getMaxsId() : null);
 		notification.setMessage(message);
 		notification.setType(messageType);
 		if (componentId > 0) {
@@ -119,7 +119,7 @@ public final class MaxsLogger {
 		}
 
 		// store it in the list and write it to file
-		kernelNotifications.add(notification);
+		kernelNotifications.getNotifications().add(notification);
 		writeToFileIfActivated();
 	}
 
@@ -133,12 +133,12 @@ public final class MaxsLogger {
 	public static void logMessage(final MaxsLoggableRoutine routine, final String message, final MaxsMessageType messageType) {
 		// Create the log message
 		final Notification notification = new Notification();
-		notification.setRoutine(routine);
+		notification.setRoutine(routine != null ? routine.getMaxsId() : null);
 		notification.setMessage(message);
 		notification.setType(messageType);
 
 		// store it in the list and write it to file
-		kernelNotifications.add(notification);
+		kernelNotifications.getNotifications().add(notification);
 		writeToFileIfActivated();
 	}
 
@@ -154,7 +154,7 @@ public final class MaxsLogger {
 		final Notification notification = new Notification();
 		final Item item = new Item();
 
-		notification.setRoutine(routine);
+		notification.setRoutine(routine != null ? routine.getMaxsId() : null);
 		notification.setMessage(attribute + " is required to perform the calculation but is missing.");
 		notification.setType(MaxsMessageType.DEBUG_ERROR);
 		notification.setCompId(componentId);
@@ -180,7 +180,7 @@ public final class MaxsLogger {
 		notification.getData().add(item);
 
 		// store it in the list and write it to file
-		kernelNotifications.add(notification);
+		kernelNotifications.getNotifications().add(notification);
 		writeToFileIfActivated();
 	}
 
@@ -262,7 +262,7 @@ public final class MaxsLogger {
 	 */
 	public static void reset() {
 		deactivateFileLogging();
-		kernelNotifications.clear();
+		kernelNotifications.getNotifications().clear();
 		log.info("The notification logger has been reset.");
 	}
 

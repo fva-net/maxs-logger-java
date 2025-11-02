@@ -16,10 +16,10 @@ class NotificationTest {
     @Test
     void testSetAndGetRoutine() {
         Notification notification = new Notification();
-        notification.setRoutine(IsoRoutine.ISO21771_2007);
-        assertEquals("iso21771_2007", notification.getRoutine());
-        notification.setRoutine(null);
-        assertNull(notification.getRoutine());
+		notification.setRoutine(IsoRoutine.ISO21771_2007.getMaxsId());
+		assertEquals("iso21771_2007", notification.getRoutine());
+		notification.setRoutine(null);
+		assertNull(notification.getRoutine());
     }
 
 	/**
