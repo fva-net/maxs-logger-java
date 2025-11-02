@@ -81,11 +81,24 @@ class MaxsLoggerIntegrationTest {
 		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
+	@Test
+	void requireNonNull_objectDoubleValueIsNaN_logsMissingAttribute() {
+		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Double.valueOf(Double.NaN), "attr");
+		assertEquals(1, MaxsLogger.kernelNotifications.size());
+		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
+	}
+
     @Test
     void requireNonNull_doubleValueIsNotNaN_doesNotLog() {
 		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, 1.23, "attr");
         assertEquals(0, MaxsLogger.kernelNotifications.size());
     }
+
+	@Test
+	void requireNonNull_objectDoubleValueIsNotNaN_doesNotLog() {
+		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Double.valueOf(1.0), "attr");
+		assertEquals(0, MaxsLogger.kernelNotifications.size());
+	}
 
     @Test
     void requireNonNull_enumValueIsNull_logsMissingAttribute() {

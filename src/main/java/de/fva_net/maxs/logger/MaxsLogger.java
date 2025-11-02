@@ -230,54 +230,33 @@ public final class MaxsLogger {
         }
     }
 
-    /**
-     * Requires non null logs to notification logger if the attribute value is null for quantity type
-     *
-     * @param routine
-     *         the routine
-	 * @param componentId
-	 *         the numeric ID of the component
-     * @param quantity
-     *         the quantity field
-     * @param attribute
-     *         the name of the attribute
-     * @param <Q>
-     *         the quantity of type Q
-     */
-	public static <Q extends Quantity<Q>> void requireNonNull(final MaxsLoggableRoutine routine, final int componentId, final Quantity<Q> quantity, final String attribute)
-    {
-        if (quantity == null) {
+	/**
+	 * Ensures that the provided value is not null. If the value is null or an enum with the name "UNKNOWN",
+	 * logs the missing attribute.
+	 *
+	 * @param routine     the routine for which the attribute is being checked
+	 * @param componentId the numeric ID of the component associated with the attribute
+	 * @param value       the value to check for null or "UNKNOWN"
+	 * @param attribute   the name of the attribute being checked
+	 */
+	public static void requireNonNull(final MaxsLoggableRoutine routine, final int componentId, final Object value, final String attribute) {
+		// Check if the value is null and log the missing attribute if true
+		if (value == null) {
 			logMissingAttribute(routine, componentId, null, attribute);
-        }
-    }
+		}
 
-    /**
-     * Ensures that the provided enum value is not "unknown" or {@code null}. If the enum value is "unknown" or {@code null}, logs the missing attribute.
-     *
-     * @param routine
-     *         the routine
-	 * @param componentId
-	 *         the numeric ID of the component associated with the attribute
-     * @param enumValue
-     *         the enum value to check
-     * @param attribute
-     *         the name of the attribute
-     * @param <E>
-     *         the type of the enum
-     */
-	public static <E extends Enum<E>> void requireNonNull(final MaxsLoggableRoutine routine, final int componentId, final E enumValue, final String attribute)
-    {
-
-        if (enumValue == null) {
-			logMissingAttribute(routine, componentId, null, attribute);
-            return;
-        }
-        if (enumValue.toString().equalsIgnoreCase("unknown")) {
+		// Check if the value is an enum with the name "UNKNOWN" and log the missing attribute if true
+		else if (value instanceof Enum<?> enumValue && enumValue.name().equalsIgnoreCase("unknown")) {
 			logMissingAttribute(routine, componentId, enumValue, attribute);
-        }
-    }
+		}
 
-    /**
+		// Check if the value is a complex Double or Float and contains NaN
+		else if (value instanceof Double d && Double.isNaN(d)) {
+			logMissingAttribute(routine, componentId, d, attribute);
+			}
+	}
+
+	/**
      * Ensures that the provided value is not zero. If the value is zero, logs the missing attribute.
      *
      * @param routine
@@ -318,25 +297,6 @@ public final class MaxsLogger {
         }
         if (Precision.equalsWithRelativeTolerance(quantity.getValue().doubleValue(), 0, 1e-7)) {
 			logMissingAttribute(routine, componentId, quantity, attribute);
-        }
-    }
-
-    /**
-     * Requires non-zero logs to notification logger if the attribute value is zero
-     *
-     * @param routine
-     *         the routine
-	 * @param componentId
-	 *         the numeric ID of the component
-     * @param value
-     *         the integer field
-     * @param attribute
-     *         the name of the attribute
-     */
-	public static void requireNonZero(final MaxsLoggableRoutine routine, final int componentId, final int value, final String attribute)
-    {
-        if (value == 0) {
-			logMissingAttribute(routine, componentId, value, attribute);
         }
     }
 
