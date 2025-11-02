@@ -96,10 +96,10 @@ public final class MaxsLogger {
      *         the rexs component
      * @param message
 	 *         the log message
-     * @param messageType
+	 * @param messageType
 	 *         the severity of the message
      */
-	public static void logMessage(final MaxsLoggableRoutine routine, final RexsComponent rexsComponent, final String message, final MessageType messageType)
+	public static void logMessage(final MaxsLoggableRoutine routine, final RexsComponent rexsComponent, final String message, final MaxsMessageType messageType)
     {
 		if (rexsComponent == null) {
 			logMessage(routine, message, messageType);
@@ -117,16 +117,16 @@ public final class MaxsLogger {
 	 *         the numeric ID of the component
      * @param message
 	 *         the log message
-     * @param messageType
+	 * @param messageType
 	 *         the severity of the message
      */
-	public static void logMessage(final MaxsLoggableRoutine routine, final int componentId, final String message, final MessageType messageType)
+	public static void logMessage(final MaxsLoggableRoutine routine, final int componentId, final String message, final MaxsMessageType messageType)
     {
         // Create the log message
         final Notification notification = new Notification();
 		notification.setRoutine(routine);
         notification.setMessage(message);
-        notification.setType(messageType);
+		notification.setType(messageType);
 		if (componentId > 0) {
 			notification.setCompId(componentId);
 		}
@@ -143,16 +143,16 @@ public final class MaxsLogger {
 	 *         the routine for which the messasge shall be logged
      * @param message
 	 *         the log message
-     * @param messageType
+	 * @param messageType
 	 *         the severity of the message
      */
-	public static void logMessage(final MaxsLoggableRoutine routine, final String message, final MessageType messageType)
+	public static void logMessage(final MaxsLoggableRoutine routine, final String message, final MaxsMessageType messageType)
     {
         // Create the log message
         final Notification notification = new Notification();
 		notification.setRoutine(routine);
         notification.setMessage(message);
-        notification.setType(messageType);
+		notification.setType(messageType);
 
         // store it in the list and write it to file
         kernelNotifications.add(notification);
@@ -178,7 +178,7 @@ public final class MaxsLogger {
 
         notification.setRoutine(routine);
         notification.setMessage(attribute + " is required to perform the calculation but is missing.");
-        notification.setType(MessageType.DEBUG_ERROR);
+		notification.setType(MaxsMessageType.DEBUG_ERROR);
 		notification.setCompId(componentId);
 
         if (value == null) {
