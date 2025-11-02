@@ -3,9 +3,6 @@ package de.fva_net.maxs.logger;
 import info.rexs.model.RexsComponent;
 import info.rexs.model.RexsModelObjectFactory;
 import info.rexs.schema.constants.standard.RexsStandardComponentTypes;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -21,13 +18,6 @@ class MaxsLoggerIntegrationTest {
     enum TestEnum {
         UNKNOWN,
         VALID
-    }
-
-    @Setter
-    @Data
-    @Builder
-	static class TestRexsPart implements RexsPart {
-        private int rexsId;
     }
 
     @BeforeEach
@@ -67,8 +57,7 @@ class MaxsLoggerIntegrationTest {
 
     @Test
     void logMessage_withPart_logsMessage() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(42).build();
-        MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, part, "Test message", MessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 42, "Test message", MessageType.INFO);
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(42, MaxsLogger.kernelNotifications.get(0).getCompId());
         assertEquals("Test message", MaxsLogger.kernelNotifications.get(0).getMessage());
@@ -87,77 +76,67 @@ class MaxsLoggerIntegrationTest {
 
     @Test
     void requireNonNull_doubleValueIsNaN_logsMissingAttribute() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(1).build();
-        MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, part, Double.NaN, "attr");
+		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Double.NaN, "attr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonNull_doubleValueIsNotNaN_doesNotLog() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(1).build();
-        MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, part, 1.23, "attr");
+		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, 1.23, "attr");
         assertEquals(0, MaxsLogger.kernelNotifications.size());
     }
 
     @Test
     void requireNonNull_enumValueIsNull_logsMissingAttribute() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(2).build();
-        MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, part, (TestEnum) null, "enumAttr");
+		MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, 2, (TestEnum) null, "enumAttr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonNull_enumValueIsUnknown_logsMissingAttribute() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(2).build();
-        MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, part, TestEnum.UNKNOWN, "enumAttr");
+		MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, 2, TestEnum.UNKNOWN, "enumAttr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonNull_enumValueIsValid_doesNotLog() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(2).build();
-        MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, part, TestEnum.VALID, "enumAttr");
+		MaxsLogger.requireNonNull(IsoRoutine.ISO6336_2019, 2, TestEnum.VALID, "enumAttr");
         assertEquals(0, MaxsLogger.kernelNotifications.size());
     }
 
     @Test
     void requireNonZero_doubleValueIsNaN_logsMissingAttribute() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(3).build();
-        MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, part, Double.NaN, "attr");
+		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, Double.NaN, "attr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonZero_doubleValueIsZero_logsMissingAttribute() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(3).build();
-        MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, part, 0.0, "attr");
+		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, 0.0, "attr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonZero_doubleValueIsNonZero_doesNotLog() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(3).build();
-        MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, part, 2.0, "attr");
+		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, 2.0, "attr");
         assertEquals(0, MaxsLogger.kernelNotifications.size());
     }
 
     @Test
     void requireNonZero_intValueIsZero_logsMissingAttribute() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(4).build();
-        MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, part, 0, "intAttr");
+		MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, 4, 0, "intAttr");
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         assertEquals(MessageType.DEBUG_ERROR, MaxsLogger.kernelNotifications.get(0).getType());
     }
 
     @Test
     void requireNonZero_intValueIsNonZero_doesNotLog() {
-		TestRexsPart part = TestRexsPart.builder().rexsId(4).build();
-        MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, part, 5, "intAttr");
+		MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, 4, 5, "intAttr");
         assertEquals(0, MaxsLogger.kernelNotifications.size());
     }
 
@@ -165,8 +144,7 @@ class MaxsLoggerIntegrationTest {
     void reset_clearsNotificationsAndDeactivatesLogging(@TempDir Path tempDir) {
         File validFile = new File(tempDir.toFile(), "logfile.maxs");
         MaxsLogger.activateFileLogging(validFile);
-		TestRexsPart part = TestRexsPart.builder().rexsId(5).build();
-        MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, part, "msg", MessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 5, "msg", MessageType.INFO);
         assertTrue(MaxsLogger.isLoggingToFileActivated());
         assertEquals(1, MaxsLogger.kernelNotifications.size());
         MaxsLogger.reset();
@@ -182,9 +160,9 @@ class MaxsLoggerIntegrationTest {
     }
 
     private static final RexsComponent rexsGear = RexsModelObjectFactory.getInstance()
-            .createRexsComponent(12, RexsStandardComponentTypes.cylindrical_gear, "mygear");
+		.createRexsComponent(12, RexsStandardComponentTypes.cylindrical_gear, "mygear");
 
-    @Test
+	@Test
     void logMessage_withRexsComponent() {
         MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, rexsGear, "Info message", MessageType.INFO);
         assertEquals(1, MaxsLogger.kernelNotifications.size());
