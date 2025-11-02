@@ -5,8 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the Notification class.
+ */
 class NotificationTest {
 
+	/**
+	 * Verifies that setting and getting the routine works as expected.
+	 */
     @Test
     void testSetAndGetRoutine() {
         Notification notification = new Notification();
@@ -16,6 +22,9 @@ class NotificationTest {
         assertNull(notification.getRoutine());
     }
 
+	/**
+	 * Verifies that getData initializes the list if it is null.
+	 */
     @Test
     void testGetDataInitializesList() {
         Notification notification = new Notification();

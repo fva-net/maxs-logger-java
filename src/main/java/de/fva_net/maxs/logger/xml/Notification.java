@@ -5,10 +5,13 @@ import de.fva_net.maxs.logger.MaxsMessageType;
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a notification.
+ * Represents a notification entry in the MAXS logging system.
+ * <p>
+ * A notification contains a message, its type, associated routine, component ID, and a list of data items.
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -17,57 +20,54 @@ import java.util.List;
 public class Notification {
 
     /**
-     * The component ID of the notification.
+	 * The component ID associated with this notification.
      */
     @XmlAttribute
     private int compId;
 
     /**
-     * The list of items associated with the notification.
+	 * The list of items (attributes and values) associated with this notification.
+	 * <p>
+	 * This list is initialized on first access if it is null.
      */
     @XmlElementWrapper
     @XmlElement(name = "item")
     private List<Item> data;
 
     /**
-     * The message of the notification.
+	 * The message describing the notification.
      */
     @XmlElement(required = true)
     private String message;
 
     /**
-     * The routine associated with the notification.
-     * -- GETTER --
-     *  Gets the routine as a string.
-
-     */
+	 * The routine associated with this notification, as a string identifier.
+	 */
     @XmlAttribute
     private String routine;
 
     /**
-     * The type of the notification.
+	 * The type of the notification message.
      */
     @XmlAttribute(required = true)
 	private MaxsMessageType type;
 
     /**
-     * Retrieves the list of items associated with the notification. If the list is null, it initializes it to an empty list.
-     *
+	 * Sets the routine for this notification.
+	 * @param routine the routine to associate
+	 */
+	public void setRoutine(MaxsLoggableRoutine routine) {
+		this.routine = routine != null ? routine.getMaxsId() : null;
+	}
+
+	/**
+	 * Returns the list of data items, initializing it if necessary.
      * @return the list of items
-     */
-    public List<Item> getData()
-    {
+	 */
+	public List<Item> getData() {
         if (data == null) {
-            data = new java.util.ArrayList<>();
+			data = new ArrayList<>();
         }
         return data;
     }
-
-    /**
-     * Sets the routine from a Routine object.
-     */
-    public void setRoutine(MaxsLoggableRoutine routine) {
-        this.routine = (routine != null) ? routine.getMaxsId() : null;
-    }
-
 }

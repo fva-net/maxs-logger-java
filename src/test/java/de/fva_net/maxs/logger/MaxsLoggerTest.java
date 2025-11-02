@@ -1,6 +1,5 @@
 package de.fva_net.maxs.logger;
 
-
 import de.fva_net.maxs.logger.xml.Notification;
 import lombok.Builder;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,18 +19,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tech.units.indriya.unit.Units.PASCAL;
 
+/**
+ * Unit tests for the MaxsLogger class.
+ */
 class MaxsLoggerTest {
 
+	/**
+	 * Test record for material component.
+	 */
 	@Builder
 	record MaterialComp(int rexsId, NumberQuantity<Pressure> elasticModulus) {
 	}
 
+	/**
+	 * Resets the logger and application information before each test.
+	 */
     @BeforeEach
     void beforeEach() {
         MaxsLogger.reset();
         MaxsLogger.setAppInformation(null, null);
     }
 
+	/**
+	 * Verifies that the notification list matches the expected file.
+	 */
     @Test
     void test_notificationList(@TempDir final Path tempDir) {
         final File expectedMaxFile = new File("src/test/resources/notificationList.maxs");
@@ -45,6 +56,9 @@ class MaxsLoggerTest {
         XmlAssert.assertThat(actualMaxsFile).and(expectedMaxFile).ignoreWhitespace().areIdentical();
     }
 
+	/**
+	 * Verifies that setting application information updates the app ID and version.
+	 */
     @Test
     void test_setAppInformation() {
         MaxsLogger.setAppInformation("app", "1.0");
@@ -52,6 +66,9 @@ class MaxsLoggerTest {
 		assertEquals("1.0", MaxsLogger.getAppVersion());
     }
 
+	/**
+	 * Verifies that the reset method clears all notifications.
+	 */
     @Test
     void test_reset() {
 		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, "msg", MaxsMessageType.INFO);
@@ -60,6 +77,9 @@ class MaxsLoggerTest {
 		assertEquals(0, MaxsLogger.getAllNotifications().size());
     }
 
+	/**
+	 * Tests that requireNonZero logs a missing attribute notification when the quantity is null.
+	 */
 	@Test
 	void test_requireNonZero_quantity_null_logsMissingAttribute() {
 		MaterialComp materialComp = MaterialComp.builder().rexsId(1).build();
@@ -68,6 +88,9 @@ class MaxsLoggerTest {
 		assertEquals(initialSize + 1, MaxsLogger.getAllNotifications().size());
 	}
 
+	/**
+	 * Tests that requireNonZero logs a missing attribute notification when the quantity is zero.
+	 */
 	@Test
 	void test_requireNonZero_quantity_zero_logsMissingAttribute() {
 		MaterialComp materialComp = MaterialComp.builder().rexsId(2).build();
@@ -77,6 +100,9 @@ class MaxsLoggerTest {
 		assertEquals(initialSize + 1, MaxsLogger.getAllNotifications().size());
 	}
 
+	/**
+	 * Tests that requireNonZero does not log a missing attribute notification when the quantity is non-zero.
+	 */
 	@Test
 	void test_requireNonZero_quantity_nonZero_doesNotLogMissingAttribute() {
 		MaterialComp materialComp = MaterialComp.builder().rexsId(3).build();
@@ -86,6 +112,9 @@ class MaxsLoggerTest {
 		assertEquals(initialSize, MaxsLogger.getAllNotifications().size());
 	}
 
+	/**
+	 * Tests filtering notifications by routine and ID.
+	 */
 	@Test
 	void test_getFilteredNotifications_byRoutineAndId() {
 		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 1, "msg1", MaxsMessageType.INFO);

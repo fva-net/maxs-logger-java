@@ -1,6 +1,5 @@
 package de.fva_net.maxs.logger;
 
-
 import de.fva_net.maxs.logger.xml.Item;
 import de.fva_net.maxs.logger.xml.KernelNotifications;
 import de.fva_net.maxs.logger.xml.Notification;
@@ -20,14 +19,14 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * MaxsLogger is a utility class for the generation of MAXS log files.
+ * Central class for generating MAXS log files and managing notifications.
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MaxsLogger {
 
 	/**
-	 * The XML object holding all .
+	 * The XML object holding all kernel notifications.
 	 */
 	private static final KernelNotifications kernelNotifications = new KernelNotifications();
 
@@ -37,9 +36,9 @@ public final class MaxsLogger {
 	private static File logPath;
 
 	/**
-	 * Activates logging to file.
+	 * Activates logging to a file.
 	 *
-	 * @param logFile the path to the log file
+	 * @param logFile the path to the log file. Must have a .maxs extension.
 	 */
 	public static void activateFileLogging(final File logFile) {
 		// null check

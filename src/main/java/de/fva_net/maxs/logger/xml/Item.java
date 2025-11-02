@@ -4,7 +4,9 @@ import jakarta.xml.bind.annotation.*;
 import lombok.Data;
 
 /**
- * Represents an item inside the data.
+ * Represents an item (attribute-value pair) in a notification.
+ * <p>
+ * Each item contains an attribute ID, component ID, and value.
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)

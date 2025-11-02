@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the kernel notifications of a notification logger.
+ * Represents the collection of notifications in the MAXS logging system.
+ * <p>
+ * This class holds all notifications for an application run, along with application metadata.
  */
 @Getter
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -36,8 +38,7 @@ public class KernelNotifications {
     /**
      * Adds a notification to the list of notifications.
      *
-     * @param notification
-     *         the notification to add
+	 * @param notification the notification to add
      */
     public void add(final Notification notification)
     {
@@ -47,31 +48,25 @@ public class KernelNotifications {
     /**
      * Clears all notifications from the list.
      */
-    public void clear()
-    {
+	public void clear() {
         notifications.clear();
     }
 
     /**
-     * Retrieves a notification by its index.
-     *
-     * @param index
-     *         the index of the notification to retrieve
-     *
-     * @return the notification at the specified index
-     */
-    public Notification get(final int index)
-    {
-        return notifications.get(index);
-    }
-
-    /**
-     * Returns the number of notifications in the list.
-     *
+	 * Returns the number of notifications.
      * @return the number of notifications
      */
-    public int size()
-    {
+	public int size() {
         return notifications.size();
     }
+
+	/**
+	 * Returns the notification at the specified index.
+	 *
+	 * @param index the index of the notification
+	 * @return the notification at the given index
+	 */
+	public Notification get(int index) {
+		return notifications.get(index);
+	}
 }
