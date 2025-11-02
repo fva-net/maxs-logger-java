@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ???
 
+### Changed
+
+- Renamed StandardRoutine for MaxsLoggableRoutine to better reflect its purpose
+
 ### Removed
 
 - Dropped RexsPart class, replaced by direct input if component/part IDs
