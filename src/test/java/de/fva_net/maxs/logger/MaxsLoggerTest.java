@@ -1,6 +1,7 @@
 package de.fva_net.maxs.logger;
 
 
+import de.fva_net.maxs.logger.xml.Notification;
 import lombok.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +13,11 @@ import tech.units.indriya.quantity.Quantities;
 import javax.measure.quantity.Pressure;
 import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tech.units.indriya.unit.Units.PASCAL;
 
 class MaxsLoggerTest {
@@ -45,41 +48,52 @@ class MaxsLoggerTest {
     @Test
     void test_setAppInformation() {
         MaxsLogger.setAppInformation("app", "1.0");
-        assertEquals("app", MaxsLogger.kernelNotifications.getAppId());
-        assertEquals("1.0", MaxsLogger.kernelNotifications.getAppVersion());
+		assertEquals("app", MaxsLogger.getAppId());
+		assertEquals("1.0", MaxsLogger.getAppVersion());
     }
 
     @Test
     void test_reset() {
 		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, "msg", MaxsMessageType.INFO);
-        assertTrue(MaxsLogger.kernelNotifications.size() > 0);
+		assertFalse(MaxsLogger.getAllNotifications().isEmpty());
         MaxsLogger.reset();
-        assertEquals(0, MaxsLogger.kernelNotifications.size());
+		assertEquals(0, MaxsLogger.getAllNotifications().size());
     }
 
 	@Test
 	void test_requireNonZero_quantity_null_logsMissingAttribute() {
 		MaterialComp materialComp = MaterialComp.builder().rexsId(1).build();
-		int initialSize = MaxsLogger.kernelNotifications.size();
+		int initialSize = MaxsLogger.getAllNotifications().size();
 		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, materialComp.rexsId, (NumberQuantity<Pressure>) null, "elastic_modulus");
-		assertEquals(initialSize + 1, MaxsLogger.kernelNotifications.size());
+		assertEquals(initialSize + 1, MaxsLogger.getAllNotifications().size());
 	}
 
 	@Test
 	void test_requireNonZero_quantity_zero_logsMissingAttribute() {
 		MaterialComp materialComp = MaterialComp.builder().rexsId(2).build();
 		NumberQuantity<Pressure> zeroQuantity = (NumberQuantity<Pressure>) Quantities.getQuantity(0.0, PASCAL);
-		int initialSize = MaxsLogger.kernelNotifications.size();
+		int initialSize = MaxsLogger.getAllNotifications().size();
 		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, materialComp.rexsId, zeroQuantity, "elastic_modulus");
-		assertEquals(initialSize + 1, MaxsLogger.kernelNotifications.size());
+		assertEquals(initialSize + 1, MaxsLogger.getAllNotifications().size());
 	}
 
 	@Test
 	void test_requireNonZero_quantity_nonZero_doesNotLogMissingAttribute() {
 		MaterialComp materialComp = MaterialComp.builder().rexsId(3).build();
 		NumberQuantity<Pressure> nonZeroQuantity = (NumberQuantity<Pressure>) Quantities.getQuantity(100.0, PASCAL);
-		int initialSize = MaxsLogger.kernelNotifications.size();
+		int initialSize = MaxsLogger.getAllNotifications().size();
 		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, materialComp.rexsId, nonZeroQuantity, "elastic_modulus");
-		assertEquals(initialSize, MaxsLogger.kernelNotifications.size());
+		assertEquals(initialSize, MaxsLogger.getAllNotifications().size());
+	}
+
+	@Test
+	void test_getFilteredNotifications_byRoutineAndId() {
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 1, "msg1", MaxsMessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO6336_2019, 1, "msg2", MaxsMessageType.INFO);
+		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 2, "msg3", MaxsMessageType.INFO);
+
+		Predicate<Notification> filter = n -> n.getRoutine().equals(IsoRoutine.ISO21771_2007.getMaxsId()) && n.getCompId() == 1;
+		List<Notification> filteredNotifications = MaxsLogger.getFilteredNotifications(filter);
+		assertEquals(1, filteredNotifications.size());
 	}
 }
