@@ -157,12 +157,8 @@
             <configuration>
               <rules>
                 <banDuplicatePomDependencyVersions/>
-                <banDynamicVersions>
-                  <allowSnapshots>true</allowSnapshots>
-                </banDynamicVersions>
-                <requireReleaseDeps>
-                  <onlyWhenRelease>true</onlyWhenRelease>
-                </requireReleaseDeps>
+                <banDynamicVersions/>
+                <requireReleaseDeps/>
               </rules>
             </configuration>
           </execution>
