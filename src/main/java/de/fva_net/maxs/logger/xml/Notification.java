@@ -1,6 +1,5 @@
 package de.fva_net.maxs.logger.xml;
 
-import de.fva_net.maxs.logger.MaxsLoggableRoutine;
 import de.fva_net.maxs.logger.MaxsMessageType;
 import jakarta.xml.bind.annotation.*;
 import lombok.Data;
@@ -51,14 +50,6 @@ public class Notification {
      */
     @XmlAttribute(required = true)
 	private MaxsMessageType type;
-
-    /**
-	 * Sets the routine for this notification.
-	 * @param routine the routine to associate
-	 */
-	public void setRoutine(MaxsLoggableRoutine routine) {
-		this.routine = routine != null ? routine.getMaxsId() : null;
-	}
 
 	/**
 	 * Returns the list of data items, initializing it if necessary.
