@@ -9,7 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- ???
+- Extended MaxsMessageType with indication of debug messages
+
+### Changed
+
+- Prohibited direct access to the KernelNotifications field, provided getter methods instead
+- Renamed StandardRoutine for MaxsLoggableRoutine to better reflect its purpose
+- Renamed MessageType to MaxMessageType for clarity
+
+### Removed
+
+- Dropped RexsPart class, replaced by direct input if component/part IDs
 
 ## [1.0.0] - 2025-09-22
 
