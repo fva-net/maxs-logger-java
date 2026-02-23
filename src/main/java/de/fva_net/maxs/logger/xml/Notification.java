@@ -22,7 +22,7 @@ public class Notification {
 	 * The component ID associated with this notification.
      */
     @XmlAttribute
-    private int compId;
+    private Integer compId;
 
     /**
 	 * The list of items (attributes and values) associated with this notification.

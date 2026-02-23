@@ -9,6 +9,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,12 +81,12 @@ class MaxsLoggerIntegrationTest {
 	 */
     @Test
     void logMessage_withPart_logsMessage() {
-		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 42, "Test message", MaxsMessageType.INFO);
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
-		assertEquals(42, MaxsLogger.getAllNotifications().get(0).getCompId());
-		assertEquals("Test message", MaxsLogger.getAllNotifications().get(0).getMessage());
-		assertEquals(MaxsMessageType.INFO, MaxsLogger.getAllNotifications().get(0).getType());
-		assertEquals("iso21771_2007", MaxsLogger.getAllNotifications().get(0).getRoutine());
+        MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 42, "Test message", MaxsMessageType.INFO);
+        assertEquals(1, MaxsLogger.getAllNotifications().size());
+        assertEquals(42, MaxsLogger.getAllNotifications().get(0).getCompId());
+        assertEquals("Test message", MaxsLogger.getAllNotifications().get(0).getMessage());
+        assertEquals(MaxsMessageType.INFO, MaxsLogger.getAllNotifications().get(0).getType());
+        assertEquals("iso21771_2007", MaxsLogger.getAllNotifications().get(0).getRoutine());
     }
 
 	/**
@@ -104,29 +105,19 @@ class MaxsLoggerIntegrationTest {
 	 * Logs a NaN double value and verifies that a missing attribute notification is created.
 	 */
     @Test
-    void requireNonNull_doubleValueIsNaN_logsMissingAttribute() {
-		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Double.NaN, "attr");
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
-		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
+    void requireNonNull_ValueIsNull_logsMissingAttribute() {
+        MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, null, "attr");
+        assertEquals(1, MaxsLogger.getAllNotifications().size());
+        assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
     }
-
-	/**
-	 * Logs a NaN object double value and verifies that a missing attribute notification is created.
-	 */
-	@Test
-	void requireNonNull_objectDoubleValueIsNaN_logsMissingAttribute() {
-		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Double.valueOf(Double.NaN), "attr");
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
-		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
-	}
 
 	/**
 	 * Logs a non-NaN double value and verifies that no notifications are created.
 	 */
     @Test
     void requireNonNull_doubleValueIsNotNaN_doesNotLog() {
-		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, 1.23, "attr");
-		assertEquals(0, MaxsLogger.getAllNotifications().size());
+        MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Optional.of(1.23), "attr");
+        assertEquals(0, MaxsLogger.getAllNotifications().size());
 	}
 
 	/**
@@ -134,7 +125,7 @@ class MaxsLoggerIntegrationTest {
 	 */
 	@Test
 	void requireNonNull_objectDoubleValueIsNotNaN_doesNotLog() {
-		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Double.valueOf(1.0), "attr");
+		MaxsLogger.requireNonNull(IsoRoutine.ISO21771_2007, 1, Optional.of(1.0), "attr");
 		assertEquals(0, MaxsLogger.getAllNotifications().size());
 	}
 
@@ -172,48 +163,48 @@ class MaxsLoggerIntegrationTest {
 	 */
     @Test
     void requireNonZero_doubleValueIsNaN_logsMissingAttribute() {
-		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, Double.NaN, "attr");
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
-		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
-	}
+        MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, Double.NaN, "attr");
+        assertEquals(1, MaxsLogger.getAllNotifications().size());
+        assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
+    }
 
 	/**
 	 * Logs a zero double value and verifies that a missing attribute notification is created.
 	 */
     @Test
     void requireNonZero_doubleValueIsZero_logsMissingAttribute() {
-		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, 0.0, "attr");
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
-		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
-	}
+        MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, 0.0, "attr");
+        assertEquals(1, MaxsLogger.getAllNotifications().size());
+        assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
+    }
 
 	/**
 	 * Logs a non-zero double value and verifies that no notifications are created.
 	 */
     @Test
     void requireNonZero_doubleValueIsNonZero_doesNotLog() {
-		MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, 2.0, "attr");
-		assertEquals(0, MaxsLogger.getAllNotifications().size());
-	}
+        MaxsLogger.requireNonZero(IsoRoutine.ISO21771_2007, 3, 2.0, "attr");
+        assertEquals(0, MaxsLogger.getAllNotifications().size());
+    }
 
 	/**
 	 * Logs a zero int value and verifies that a missing attribute notification is created.
 	 */
     @Test
     void requireNonZero_intValueIsZero_logsMissingAttribute() {
-		MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, 4, 0, "intAttr");
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
-		assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
-	}
+        MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, 4, 0, "intAttr");
+        assertEquals(1, MaxsLogger.getAllNotifications().size());
+        assertEquals(MaxsMessageType.DEBUG_ERROR, MaxsLogger.getAllNotifications().get(0).getType());
+    }
 
 	/**
 	 * Logs a non-zero int value and verifies that no notifications are created.
 	 */
     @Test
     void requireNonZero_intValueIsNonZero_doesNotLog() {
-		MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, 4, 5, "intAttr");
-		assertEquals(0, MaxsLogger.getAllNotifications().size());
-	}
+        MaxsLogger.requireNonZero(IsoRoutine.ISO6336_2019, 4, 5, "intAttr");
+        assertEquals(0, MaxsLogger.getAllNotifications().size());
+    }
 
 	/**
 	 * Verifies that resetting the logger clears notifications and deactivates logging.
@@ -222,13 +213,13 @@ class MaxsLoggerIntegrationTest {
     void reset_clearsNotificationsAndDeactivatesLogging(@TempDir Path tempDir) {
         File validFile = new File(tempDir.toFile(), "logfile.maxs");
         MaxsLogger.activateFileLogging(validFile);
-		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 5, "msg", MaxsMessageType.INFO);
+        MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, 5, "msg", MaxsMessageType.INFO);
         assertTrue(MaxsLogger.isLoggingToFileActivated());
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
+        assertEquals(1, MaxsLogger.getAllNotifications().size());
         MaxsLogger.reset();
         assertFalse(MaxsLogger.isLoggingToFileActivated());
-		assertEquals(0, MaxsLogger.getAllNotifications().size());
-	}
+        assertEquals(0, MaxsLogger.getAllNotifications().size());
+    }
 
 	/**
 	 * Sets the application information and verifies the app ID and version.
@@ -248,12 +239,12 @@ class MaxsLoggerIntegrationTest {
 	 */
 	@Test
     void logMessage_withRexsComponent() {
-		MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, rexsGear, "Info message", MaxsMessageType.INFO);
-		assertEquals(1, MaxsLogger.getAllNotifications().size());
-		assertEquals(12, MaxsLogger.getAllNotifications().get(0).getCompId());
-		assertEquals("Info message", MaxsLogger.getAllNotifications().get(0).getMessage());
-		assertEquals(MaxsMessageType.INFO, MaxsLogger.getAllNotifications().get(0).getType());
-		assertEquals("iso21771_2007", MaxsLogger.getAllNotifications().get(0).getRoutine());
-		assertTrue(MaxsLogger.getAllNotifications().get(0).getMessage().contains("Info"));
+        MaxsLogger.logMessage(IsoRoutine.ISO21771_2007, rexsGear, "Info message", MaxsMessageType.INFO);
+        assertEquals(1, MaxsLogger.getAllNotifications().size());
+        assertEquals(12, MaxsLogger.getAllNotifications().get(0).getCompId());
+        assertEquals("Info message", MaxsLogger.getAllNotifications().get(0).getMessage());
+        assertEquals(MaxsMessageType.INFO, MaxsLogger.getAllNotifications().get(0).getType());
+        assertEquals("iso21771_2007", MaxsLogger.getAllNotifications().get(0).getRoutine());
+        assertTrue(MaxsLogger.getAllNotifications().get(0).getMessage().contains("Info"));
     }
 }
