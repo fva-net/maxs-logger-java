@@ -24,7 +24,7 @@ public class Item {
      * The component ID of the item.
      */
     @XmlAttribute(name = "compId", required = true)
-    private int compId;
+    private Integer compId;
 
     /**
      * The value of the item.
